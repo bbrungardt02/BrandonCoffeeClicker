@@ -3,16 +3,13 @@ const data = window.data;
 
 // Make your References to the two DOM nodes
 
-let coffee = document.querySelector("coffee");
-let totalCPS = document.querySelector("totalCPS");
-
 // Create a reference to the element who's ID is 'big_coffee and call it bigCoffee
 
-let bigCoffee = document.getElementById("big_coffee");
+const bigCoffee = document.getElementById("big_coffee");
 
 // Create a reference to the element who's ID is 'producer_container' and call it producerContainer
 
-let producerContainer = document.getElementById("producer_container");
+const producerContainer = document.getElementById("producer_container");
 
 /**************
  *   SLICE 1
@@ -22,16 +19,17 @@ function updateCoffeeView(coffeeQty) {
   // Create a reference to the element who's ID is 'coffee_counter'
   let coffeeCounter = document.getElementById("coffee_counter");
   // Set the innerText of that element to be the coffeeQty passed into this function
-  coffeeCounter.innerText(coffeeQty);
+  coffeeCounter.innerText = coffeeQty;
 }
 
 function clickCoffee(data) {
   // Increment the data object's (passed into this function) coffee property by one
-  ++data.coffee;
+  data.coffee++;
   // call the updateCoffeeView function and pass it the newly updated data.coffee property
   updateCoffeeView(data.coffee);
   // call the renderProducers function and pass it the data object
   renderProducers(data);
+  return data;
 }
 
 /**************
@@ -44,11 +42,9 @@ function unlockProducers(producers, coffeeCount) {
   // to half the producer's price, reassign the producers.unlocked property to equal true
   for (let i = 0; i < producers.length; i++) {
     let producer = producers[i];
-    producers.forEach((producer) => {
-      if (coffeeCount >= producer.cost) {
-        producer.unlocked = true;
-      }
-    });
+    if (coffeeCount >= producer.price / 2) {
+      producer.unlocked = true;
+    }
   }
 }
 
@@ -56,7 +52,7 @@ function getUnlockedProducers(data) {
   // use the Array.prototype.filter() method
   // filter through the data.producers property, and return an array with only the producers whose
   // unlocked property is true
-  let producers = data.producers.filter((producer) => producer.unlocked);
+  return data.producers.filter((producer) => producer.unlocked);
 }
 
 // You do not need to edit this function
@@ -176,9 +172,9 @@ function tick(data) {
 // Event Listeners
 // add a 'click' event listener to the bigCoffee element (that you referenced above)
 // the event listener should call the clickCoffee function, and pass in the global data object
-bigCoffee.addEventListener("click", clickCoffee(data));
+bigCoffee.addEventListener("click", clickCoffee);
 // add a 'click' event listener to the element (referenced at the top of the file)
 // the event listener should call the buyButtonClick function and pass it the event, and the global data object
-
+element.addEventListener("click", buyButtonClick);
 // You do not need to edit this last line. This simple runs your tick function every 1000ms, or 1s
 setInterval(() => tick(data), 1000);
