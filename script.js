@@ -17,9 +17,9 @@ const producerContainer = document.getElementById("producer_container");
 
 function updateCoffeeView(coffeeQty) {
   // Create a reference to the element who's ID is 'coffee_counter'
-  const coffeeCount = document.getElementById("coffee_counter");
+  const coffeeCounterDiv = document.getElementById("coffee_counter");
   // Set the innerText of that element to be the coffeeQty passed into this function
-  coffeeCount.innerText = coffeeQty;
+  coffeeCounterDiv.innerText = coffeeQty;
 }
 
 function clickCoffee(data) {
@@ -94,7 +94,7 @@ function renderProducers(data) {
   // call the unlockProducers function and pass it data.producers and data.coffee
   unlockProducers(window.data.producers, window.data.coffee);
   // make a reference to the DOM element whose ID is producer_container
-  let producerContainer = document.getElementById("producer_container");
+  const producerContainer = document.getElementById("producer_container");
   // call the deleteAllChildNodes function and pass it the above producerContainer element
   deleteAllChildNodes(producerContainer);
   // you do not need to edit the following code, but for understanding, this gets the unlocked producers,
@@ -161,11 +161,11 @@ function buyButtonClick(event, data) {
 function tick(data) {
   // increment the data object's (passed into this function)
   // coffee property by the data.totalCPS amount
-  window.data.coffee += window.data.totalCPS;
+  data.coffee += data.totalCPS;
   // call the updateCoffeeView function and pass it the data.coffee property
   updateCoffeeView(window.data.coffee);
   // call the renderProducers function and pass it the newly updated data object
-  renderProducers(window.data);
+  renderProducers(data);
 }
 
 // Event Listeners
@@ -174,6 +174,8 @@ function tick(data) {
 bigCoffee.addEventListener("click", clickCoffee);
 // add a 'click' event listener to the element (referenced at the top of the file)
 // the event listener should call the buyButtonClick function and pass it the event, and the global data object
-producerContainer.addEventListener("click", buyButtonClick);
+producerContainer.addEventListener("click", (event) => {
+  buyButtonClick(event, data);
+});
 // You do not need to edit this last line. This simple runs your tick function every 1000ms, or 1s
 setInterval(() => tick(data), 1000);
