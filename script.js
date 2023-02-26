@@ -24,9 +24,9 @@ function updateCoffeeView(coffeeQty) {
 
 function clickCoffee(data) {
   // Increment the data object's (passed into this function) coffee property by one
-  data.coffee++;
+  window.data.coffee++;
   // call the updateCoffeeView function and pass it the newly updated data.coffee property
-  updateCoffeeView(data.coffee);
+  updateCoffeeView(window.data.coffee);
   // call the renderProducers function and pass it the data object
   renderProducers(data);
 }
@@ -39,8 +39,8 @@ function unlockProducers(producers, coffeeCount) {
   // loop through the producers array passed into the function
   // for each producer, if the coffeeCount (passed in) is greater than or equal
   // to half the producer's price, reassign the producers.unlocked property to equal true
-  for (let i = 0; i < producers.length; i++) {
-    let producer = producers[i];
+  for (let i = 0; i < window.data.producers.length; i++) {
+    let producer = window.data.producers[i];
     if (coffeeCount >= producer.price / 2) {
       producer.unlocked = true;
     }
@@ -51,7 +51,7 @@ function getUnlockedProducers(data) {
   // use the Array.prototype.filter() method
   // filter through the data.producers property, and return an array with only the producers whose
   // unlocked property is true
-  return data.producers.filter((producer) => producer.unlocked);
+  return window.data.producers.filter((producer) => producer.unlocked);
 }
 
 // You do not need to edit this function
@@ -92,7 +92,7 @@ function deleteAllChildNodes(parent) {
 
 function renderProducers(data) {
   // call the unlockProducers function and pass it data.producers and data.coffee
-  unlockProducers(data.producers, data.coffee);
+  unlockProducers(window.data.producers, window.data.coffee);
   // make a reference to the DOM element whose ID is producer_container
   let producerContainer = document.getElementById("producer_container");
   // call the deleteAllChildNodes function and pass it the above producerContainer element
@@ -161,11 +161,11 @@ function buyButtonClick(event, data) {
 function tick(data) {
   // increment the data object's (passed into this function)
   // coffee property by the data.totalCPS amount
-  data.coffee += data.totalCPS;
+  window.data.coffee += window.data.totalCPS;
   // call the updateCoffeeView function and pass it the data.coffee property
-  updateCoffeeView(data.coffee);
+  updateCoffeeView(window.data.coffee);
   // call the renderProducers function and pass it the newly updated data object
-  renderProducers(data);
+  renderProducers(window.data);
 }
 
 // Event Listeners
