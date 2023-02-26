@@ -17,9 +17,9 @@ const producerContainer = document.getElementById("producer_container");
 
 function updateCoffeeView(coffeeQty) {
   // Create a reference to the element who's ID is 'coffee_counter'
-  let coffeeCounter = document.getElementById("coffee_counter");
+  const coffeeCount = document.getElementById("coffee_counter");
   // Set the innerText of that element to be the coffeeQty passed into this function
-  coffeeCounter.innerText = coffeeQty;
+  coffeeCount.innerText = coffeeQty;
 }
 
 function clickCoffee(data) {
@@ -29,7 +29,6 @@ function clickCoffee(data) {
   updateCoffeeView(data.coffee);
   // call the renderProducers function and pass it the data object
   renderProducers(data);
-  return data;
 }
 
 /**************
@@ -175,6 +174,6 @@ function tick(data) {
 bigCoffee.addEventListener("click", clickCoffee);
 // add a 'click' event listener to the element (referenced at the top of the file)
 // the event listener should call the buyButtonClick function and pass it the event, and the global data object
-element.addEventListener("click", buyButtonClick);
+producerContainer.addEventListener("click", buyButtonClick);
 // You do not need to edit this last line. This simple runs your tick function every 1000ms, or 1s
 setInterval(() => tick(data), 1000);
